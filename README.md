@@ -1,186 +1,145 @@
-🚗🗺️ Autonomous Navigation in a Dynamic Grid Environment Using A*
-1️⃣ Objective
+Implement an AI Agent for Route Planning in an Autonomous Vehicle
 
-The objective of this project is to simulate how an autonomous vehicle plans and navigates a route in a dynamic environment.
-The system uses the A* algorithm to find an optimal path on a grid while avoiding:
+ 1️. Objective
 
-Static obstacles (roadblocks)
+This project focuses on simulating how an autonomous vehicle decides the best route to take in a constantly changing environment.
+The idea is simple: use the **A*** search algorithm to plan a path while dealing with:
 
-High-cost traffic zones
+* Roadblocks
+* Traffic-heavy regions
+* Moving cars that appear as temporary obstacles
 
-Dynamic obstacles (moving cars)
+The goal is to show how an AI agent reacts and adjusts as it moves through the grid.
 
-The project demonstrates intelligent decision-making in real time, where the agent must respond to changes in the environment as it moves.
+ 2️. Environment
 
-2️⃣ Environment
+The simulation is built on a **20×20 grid**. Each cell represents a piece of road, and every cell behaves differently based on what it contains.
 
-The simulation takes place in a 20×20 grid world, where each cell represents a road segment with different properties:
+ **Types of Cells**
 
-Grid Components
+* Normal road — cost 1
+* Static traffic zone — cost 5
+* Roadblock — cannot pass through it
+* Moving cars — dynamic obstacles that shift around during the simulation
 
-Normal Road (Cost = 1)
+ **How the Environment Behaves**
 
-Static Traffic (Cost = 5)
+* Cars move every step, so the situation keeps changing
+* The agent follows the A* path that was calculated at the start
+* If a moving car enters the next step on the path, the simulation reacts immediately
+* The grid updates visually as the agent moves
 
-Roadblock (Impassable)
+ **Libraries Used**
 
-Moving Cars (Dynamic obstacles)
+* NumPy
+* Matplotlib
+* Random
+* Heapq
+* IPython Display
 
-Environment Behavior
+All the movement and updates make the environment feel active rather than static.
 
-Moving cars change position every step
 
-The autonomous agent follows the planned A* path
+3️. Algorithm Used — A* Pathfinding
 
-If a moving car blocks the next move, the simulation reacts immediately
+A* is used to figure out the shortest and least-cost path from the start to the goal.
 
-Libraries Used
+ **Main Points**
 
-NumPy (grid creation & handling)
+* Manhattan distance is used as the heuristic
+* The algorithm naturally avoids:
 
-Matplotlib (visualization)
+  * Roadblocks
+  * Moving cars
+  * High-cost traffic zones
+* A priority queue ensures the most promising cell is explored first
+* Once the goal is reached, the path is reconstructed and displayed
 
-Random (dynamic environment)
+ **Dynamic Behavior**
 
-Heapq (priority queue for A*)
+As the agent moves:
 
-IPython Display (for animation effect)
+* Cars continue shifting positions
+* If one of them blocks the next cell, the simulation stops
+* Every step is shown visually, making the movement easy to follow
 
-The environment is dynamic, meaning obstacles move during execution, making path execution non-trivial.
 
-3️⃣ Algorithm Used — A* Pathfinding
 
-The A* algorithm is used to calculate the shortest, least-cost path through the grid.
+4️. Results
 
-Key Features of the A* in This Project
+ ✔️ Path Generation
 
-Uses Manhattan distance as the heuristic
+The system automatically picks a start and goal and calculates a valid path using A*.
 
-Avoids:
+ ✔️ Live Movement
 
-Roadblocks
+During navigation:
 
-Cells with moving cars
+* Each move is shown on the grid
+* Cars move at the same time
+* Depending on the situation:
 
-High-cost traffic (minimizes overall travel cost)
+  * The agent reaches the goal, or
+  * A moving car blocks the path
 
-Uses a priority queue to explore the best possible next step
+ ✔️ Visual Output
 
-Reconstructs the final path from start to goal
+The simulation displays:
 
-The system first computes an initial path, then simulates movement step-by-step along that path.
+* Start and goal
+* Roadblocks
+* Traffic zones
+* Moving cars
+* The planned A* route
 
-Dynamic Component
+The animation updates roughly every 0.5 seconds.
 
-During execution:
 
-Moving cars may block the path
+5️. How to Run the Project
 
-If a collision occurs, the simulation stops
+ 👉 Running in Google Colab
 
-The environment updates visually after every step
+1. Open the notebook in Colab
+2. Run all the cells
+3. The simulation will:
 
-This makes the navigation feel realistic and challenging.
+   * Generate the grid
+   * Pick start and goal
+   * Compute the A* path
+   * Show the step-by-step movement
 
-4️⃣ Results
-✔️ Path Found Successfully
+Colab refreshes the output using `clear_output()`.
 
-The program generates:
+ 💻 Running Locally
 
-A valid starting point
+Install the required libraries:
 
-A valid goal
-
-An optimal route calculated by the A* algorithm
-
-✔️ Real-Time Simulation
-
-As the agent moves along the path:
-
-Each step is visualized
-
-Moving cars shift positions
-
-Possible outcomes:
-
-Goal Reached (successful navigation)
-
-Path Blocked by a moving car
-
-✔️ Visualization
-
-The simulation shows:
-
-Grid layout
-
-Path drawn in black
-
-Start and goal markers
-
-Static traffic zones
-
-Roadblocks
-
-Moving cars
-
-A dynamic visual update occurs every 0.5 seconds, creating an animation of the navigation process.
-
-5️⃣ How to Run the Project
-Step 1 — Install Dependencies
+```bash
 pip install numpy matplotlib
+```
 
+Then run:
 
-(If using Jupyter Notebook, no extra steps are needed.)
-
-Step 2 — Save the Script
-
-Save the entire code in:
-
-autonomous_navigation_dynamic_grid.py
-
-Step 3 — Run the Program
+```bash
 python autonomous_navigation_dynamic_grid.py
+```
 
-Step 4 — View the Simulation
+ 6️. Developer’s Role
 
-The program will:
+This project includes:
 
-Generate a grid
+* Creating the grid and its behavior
+* Writing the A* pathfinding algorithm
+* Adding moving obstacles
+* Displaying the simulation using Matplotlib
+* Handling collision situations
+* Splitting the code into clear, understandable functions
 
-Select start & goal automatically
+**Skills Demonstrated**
 
-Compute a path
+* Path planning
+* Search algorithms
+* Simulation design
+* Visualization
+* Real-time environment handling
 
-Begin animated navigation
-
-Watch the updates as the autonomous agent moves step-by-step through the environment.
-
-6️⃣ Developer’s Role
-
-The developer is responsible for:
-
-Designing the dynamic grid environment
-
-Creating cost-based cell behavior
-
-Implementing A* pathfinding
-
-Integrating moving obstacle logic
-
-Building real-time animation using Matplotlib
-
-Handling collision detection and termination conditions
-
-Structuring code into clean, understandable functions
-
-The project showcases skills in:
-
-Search algorithms
-
-Dynamic simulations
-
-Path planning
-
-Visualization in Python
-
-Handling real-time updates in grid-based environments
